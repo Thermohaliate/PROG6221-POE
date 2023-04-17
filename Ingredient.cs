@@ -1,4 +1,4 @@
-﻿namespace POE {
+namespace POE {
 	internal class Ingredient {
 		// private variables --------------------------------------------------------------------------------------- //
 		private readonly string name;
@@ -25,9 +25,9 @@
 		public string Measurement {
 			get {
 				return this.measurement;
-			}	
+			}
 		}
-		
+
 		public string Name {
 			get {
 				return this.name;

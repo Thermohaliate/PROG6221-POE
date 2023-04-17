@@ -31,8 +31,6 @@ namespace POE {
 			string newLine = this.description;
 			int index = 0;
 
-			Console.WriteLine(Math.Floor((double) description.Length / 85));
-			
 			while (newLine.Length > 85) {
 				index += 85;
 
@@ -41,7 +39,7 @@ namespace POE {
 				}
 
 				description = (
-					description.Substring(0, index) + 
+					description.Substring(0, index) +
 					"\n" +
 					description.Substring(index + 1, (description.Length - index) - 1)
 				);
