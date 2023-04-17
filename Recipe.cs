@@ -33,6 +33,11 @@ namespace POE {
 			this.steps.Add(step);
 		}
 
+		public void Clear() {
+			this.ingredients.Clear();
+			this.steps.Clear();
+		}
+
 		public void Reset() {
 			foreach (Ingredient ingredient in this.ingredients) {
 				ingredient.Reset();

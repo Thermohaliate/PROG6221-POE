@@ -22,7 +22,8 @@ namespace POE {
 				Console.WriteLine("3. Scale recipe");
 				Console.WriteLine("4. Reset recipe");
 				Console.WriteLine("5. Show recipe");
-				Console.WriteLine("6. Exit");
+				Console.WriteLine("6. Clear recipe");
+				Console.WriteLine("7. Exit");
 				Console.Write("> ");
 
 
@@ -73,6 +74,18 @@ namespace POE {
 
 						break;
 					case 6:
+						recipe.Clear();
+
+						Console.ForegroundColor = ConsoleColor.Green;
+
+						Console.WriteLine("Recipe cleared");
+
+						Console.ForegroundColor = ConsoleColor.White;
+
+						System.Threading.Thread.Sleep(1000);
+
+						break;
+					case 7:
 						Environment.Exit(0);
 
 						break;
