@@ -1,21 +1,23 @@
-namespace POE {
+﻿namespace POE {
 	internal class Ingredient {
 		// private variables --------------------------------------------------------------------------------------- //
 		private readonly string name;
 		private double quantity;
-		public readonly string measurement;
+		private readonly double originalQuantity;
 		private readonly string measurement;
 
 		// constructors -------------------------------------------------------------------------------------------- //
 		public Ingredient(string name, double quantity) {
 			this.name = name;
 			this.quantity = quantity;
+			this.originalQuantity = quantity;
 			this.measurement = "";
 		}
 
 		public Ingredient(string name, double quantity, string measurement) {
 			this.name = name;
 			this.quantity = quantity;
+			this.originalQuantity = quantity;
 			this.measurement = measurement;
 		}
 
@@ -42,6 +44,10 @@ namespace POE {
 		}
 
 		// public methods ------------------------------------------------------------------------------------------ //
+		public void Reset() {
+			this.quantity = this.originalQuantity;
+		}
+
 		public override string ToString() {
 			if (this.measurement == "") {
 				return this.name + " (" + this.quantity + ")";

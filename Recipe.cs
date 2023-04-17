@@ -33,6 +33,12 @@ namespace POE {
 			this.steps.Add(step);
 		}
 
+		public void Reset() {
+			foreach (Ingredient ingredient in this.ingredients) {
+				ingredient.Reset();
+			}
+		}
+
 		public void Scale(double scale) {
 			foreach (Ingredient ingredient in this.ingredients) {
 				ingredient.Quantity *= scale;
