@@ -1,15 +1,28 @@
-﻿using System;
+using System;
 
 namespace POE {
 	internal class Step {
-		// public variables ---------------------------------------------------------------------------------------- //
-		public readonly string title;
-		public readonly string description;
+		// private variables --------------------------------------------------------------------------------------- //
+		private readonly string title;
+		private readonly string description;
 
 		// constructors -------------------------------------------------------------------------------------------- //
 		public Step(string title, string description) {
 			this.title = title;
 			this.description = description;
+		}
+
+		// public properties --------------------------------------------------------------------------------------- //
+		public string Title {
+			get {
+				return this.title;
+			}
+		}
+
+		public string Description {
+			get {
+				return this.description;
+			}
 		}
 
 		// public methods ------------------------------------------------------------------------------------------ //
