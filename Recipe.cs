@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace POE {
@@ -35,7 +35,7 @@ namespace POE {
 
 		public void Scale(double scale) {
 			foreach (Ingredient ingredient in this.ingredients) {
-				ingredient.quantity *= scale;
+				ingredient.Quantity *= scale;
 			}
 		}
 
