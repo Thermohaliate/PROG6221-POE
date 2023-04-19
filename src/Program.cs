@@ -249,7 +249,7 @@ namespace POE {
 				break;
 			}
 		}
-	
+
 		private static void ClearMenu(Recipe recipe) {
 			while (true) {
 				Console.Clear();
