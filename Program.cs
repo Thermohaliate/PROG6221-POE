@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 
 namespace POE {
@@ -20,8 +20,8 @@ namespace POE {
 				Console.WriteLine("1. Add ingredient");
 				Console.WriteLine("2. Add step");
 				Console.WriteLine("3. Scale recipe");
-				Console.WriteLine("4. Reset recipe");
-				Console.WriteLine("5. Show recipe");
+				Console.WriteLine("4. Show recipe");
+				Console.WriteLine("5. Reset recipe");
 				Console.WriteLine("6. Clear recipe");
 				Console.WriteLine("7. Exit");
 				Console.Write("> ");
@@ -55,6 +55,13 @@ namespace POE {
 
 						break;
 					case 4:
+						Console.Clear();
+						Console.WriteLine(recipe.ToString());
+						Console.WriteLine("Press any key to continue...");
+						Console.ReadLine();
+
+						break;
+					case 5:
 						recipe.Reset();
 
 						Console.ForegroundColor = ConsoleColor.Green;
@@ -66,23 +73,8 @@ namespace POE {
 						System.Threading.Thread.Sleep(1000);
 
 						break;
-					case 5:
-						Console.Clear();
-						Console.WriteLine(recipe.ToString());
-						Console.WriteLine("Press any key to continue...");
-						Console.ReadLine();
-
-						break;
 					case 6:
-						recipe.Clear();
-
-						Console.ForegroundColor = ConsoleColor.Green;
-
-						Console.WriteLine("Recipe cleared");
-
-						Console.ForegroundColor = ConsoleColor.White;
-
-						System.Threading.Thread.Sleep(1000);
+						ClearMenu(recipe);
 
 						break;
 					case 7:
@@ -256,6 +248,41 @@ namespace POE {
 				recipe.Scale(scale);
 
 				break;
+			}
+		}
+	
+		private static void ClearMenu(Recipe recipe) {
+			while (true) {
+				Console.Clear();
+				Console.Write("Are you sure you want to clear the recipe? (Y/N)\n> ");
+
+				string input = Console.ReadLine();
+
+				if (input.ToLower() == "y") {
+					recipe.Clear();
+
+					Console.ForegroundColor = ConsoleColor.Green;
+
+					Console.WriteLine("Recipe cleared");
+
+					Console.ForegroundColor = ConsoleColor.White;
+
+					System.Threading.Thread.Sleep(1000);
+
+					break;
+				} else if (input.ToLower() == "n") {
+					break;
+				} else {
+					Console.ForegroundColor = ConsoleColor.Red;
+
+					Console.WriteLine("Invalid input");
+
+					Console.ForegroundColor = ConsoleColor.White;
+
+					System.Threading.Thread.Sleep(1000);
+
+					continue;
+				}
 			}
 		}
 	}
