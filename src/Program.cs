@@ -253,7 +253,9 @@ namespace POE {
 		private static void ClearMenu(Recipe recipe) {
 			while (true) {
 				Console.Clear();
-				Console.Write("Are you sure you want to clear the recipe? (Y/N)\n> ");
+				Console.Write(
+					"Are you sure you want to clear the recipe? (Y/N)\n> "
+				);
 
 				string input = Console.ReadLine();
 
