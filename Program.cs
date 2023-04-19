@@ -3,12 +3,12 @@ using System.Text.RegularExpressions;
 
 namespace POE {
 	internal class Program {
-		// main method --------------------------------------------------------------------------------------------- //
+		// main method ----------------------------------------------------- //
 		static void Main() {
 			MainMenu();
 		}
 
-		// private methods ----------------------------------------------------------------------------------------- //
+		// private methods ------------------------------------------------- //
 		private static void MainMenu() {
 			Recipe recipe = new Recipe();
 
