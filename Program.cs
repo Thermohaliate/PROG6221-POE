@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace POE {
 	internal class Program {
@@ -24,7 +25,6 @@ namespace POE {
 				Console.WriteLine("6. Clear recipe");
 				Console.WriteLine("7. Exit");
 				Console.Write("> ");
-
 
 				string input = Console.ReadLine();
 
