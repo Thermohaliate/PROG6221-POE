@@ -10,7 +10,7 @@ namespace POE {
 
 		// private methods ------------------------------------------------- //
 		private static void MainMenu() {
-			Recipe recipe = new Recipe();
+			Recipe recipe = new();
 
 			Console.ForegroundColor = ConsoleColor.White;
 

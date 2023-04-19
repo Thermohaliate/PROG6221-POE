@@ -1,3 +1,5 @@
+using System;
+
 namespace POE {
 	internal class Step {
 		// private variables ----------------------------------------------- //
@@ -36,9 +38,9 @@ namespace POE {
 					index--;
 				}
 
-				description = (
-					description.Substring(0, index) +
-					"\n" +
+				description = string.Concat(
+					description[..index],
+					"\n",
 					description.Substring(
 						index + 1, (description.Length - index) - 1
 					)

@@ -13,7 +13,7 @@ namespace POE {
 		}
 
 		// private methods ------------------------------------------------- //
-		private string CreateTitle(string title) {
+		private static string CreateTitle(string title) {
 			string output = "--- " + title + " ";
 
 			while (output.Length < 50) {
@@ -54,7 +54,7 @@ namespace POE {
 			string seperator = "=============================================";
 			string output = seperator + "\n";
 
-			output += this.CreateTitle(
+			output += CreateTitle(
 				"Ingredients (" + this.ingredients.Count + ")"
 			) + "\n";
 
@@ -62,9 +62,7 @@ namespace POE {
 				output += ingredient.ToString() + "\n";
 			}
 
-			output += this.CreateTitle(
-				"Steps (" + this.steps.Count + ")"
-			) + "\n";
+			output += CreateTitle("Steps (" + this.steps.Count + ")") + "\n";
 
 			foreach (Step step in this.steps) {
 				output += step.ToString() + "\n";
