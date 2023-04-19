@@ -1,7 +1,7 @@
 # Aidan Venter DBAS6211 POE
 
 ## Requirements
-- .NET Framework V4.8
+- .NET Core 7.0
 - Visual Studio 2022
 
 ## Installation
