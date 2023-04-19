@@ -1,5 +1,3 @@
-using System;
-
 namespace POE {
 	internal class Step {
 		// private variables --------------------------------------------------------------------------------------- //
