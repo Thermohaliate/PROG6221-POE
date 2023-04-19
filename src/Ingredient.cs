@@ -6,35 +6,35 @@ namespace POE {
 		private readonly double originalQuantity;
 		private readonly string measurement;
 
-		// constructors ---------------------------------------------------- //
-		public Ingredient(string name, double quantity) {
+		// internal constructors ------------------------------------------- //
+		internal Ingredient(string name, double quantity) {
 			this.name = name;
 			this.quantity = quantity;
 			this.originalQuantity = quantity;
 			this.measurement = "";
 		}
 
-		public Ingredient(string name, double quantity, string measurement) {
+		internal Ingredient(string name, double quantity, string measurement) {
 			this.name = name;
 			this.quantity = quantity;
 			this.originalQuantity = quantity;
 			this.measurement = measurement;
 		}
 
-		// public properties ----------------------------------------------- //
-		public string Measurement {
+		// internal properties --------------------------------------------- //
+		internal string Measurement {
 			get {
 				return this.measurement;
 			}
 		}
 
-		public string Name {
+		internal string Name {
 			get {
 				return this.name;
 			}
 		}
 
-		public double Quantity {
+		internal double Quantity {
 			get {
 				return this.quantity;
 			}
@@ -43,11 +43,12 @@ namespace POE {
 			}
 		}
 
-		// public methods -------------------------------------------------- //
-		public void Reset() {
+		// internal methods ------------------------------------------------ //
+		internal void Reset() {
 			this.quantity = this.originalQuantity;
 		}
 
+		// public methods -------------------------------------------------- //
 		public override string ToString() {
 			if (this.measurement == "") {
 				return this.name + " (" + this.quantity + ")";

@@ -6,14 +6,14 @@ namespace POE {
 		private readonly List<Ingredient> ingredients;
 		private readonly List<Step> steps;
 
-		// constructors ---------------------------------------------------- //
-		public Recipe() {
+		// internal constructors ------------------------------------------- //
+		internal Recipe() {
 			this.ingredients = new List<Ingredient>();
 			this.steps = new List<Step>();
 		}
 
 		// private methods ------------------------------------------------- //
-		public string CreateTitle(string title) {
+		private string CreateTitle(string title) {
 			string output = "--- " + title + " ";
 
 			while (output.Length < 50) {
@@ -23,32 +23,33 @@ namespace POE {
 			return output;
 		}
 
-		// public methods -------------------------------------------------- //
-		public void AddIngredient(Ingredient ingredient) {
+		// internal methods ------------------------------------------------ //
+		internal void AddIngredient(Ingredient ingredient) {
 			this.ingredients.Add(ingredient);
 		}
 
-		public void AddStep(Step step) {
+		internal void AddStep(Step step) {
 			this.steps.Add(step);
 		}
 
-		public void Clear() {
+		internal void Clear() {
 			this.ingredients.Clear();
 			this.steps.Clear();
 		}
 
-		public void Reset() {
+		internal void Reset() {
 			foreach (Ingredient ingredient in this.ingredients) {
 				ingredient.Reset();
 			}
 		}
 
-		public void Scale(double scale) {
+		internal void Scale(double scale) {
 			foreach (Ingredient ingredient in this.ingredients) {
 				ingredient.Quantity *= scale;
 			}
 		}
 
+		// public methods -------------------------------------------------- //
 		public override string ToString() {
 			string seperator = "=============================================";
 			string output = seperator + "\n";

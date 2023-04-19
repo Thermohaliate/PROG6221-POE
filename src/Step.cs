@@ -4,20 +4,20 @@ namespace POE {
 		private readonly string title;
 		private readonly string description;
 
-		// constructors ---------------------------------------------------- //
-		public Step(string title, string description) {
+		// internal constructors ------------------------------------------- //
+		internal Step(string title, string description) {
 			this.title = title;
 			this.description = description;
 		}
 
-		// public properties ----------------------------------------------- //
-		public string Title {
+		// internal properties --------------------------------------------- //
+		internal string Title {
 			get {
 				return this.title;
 			}
 		}
 
-		public string Description {
+		internal string Description {
 			get {
 				return this.description;
 			}

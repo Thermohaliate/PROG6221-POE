@@ -225,31 +225,6 @@ namespace POE {
 			recipe.AddStep(new Step(title, description));
 		}
 
-		private static void ScaleMenu(Recipe recipe) {
-			while (true) {
-				Console.Clear();
-				Console.Write("Scale factor: ");
-
-				string input = Console.ReadLine();
-
-				if (!double.TryParse(input, out double scale)) {
-					Console.ForegroundColor = ConsoleColor.Red;
-
-					Console.WriteLine("Invalid input");
-
-					Console.ForegroundColor = ConsoleColor.White;
-
-					System.Threading.Thread.Sleep(1000);
-
-					continue;
-				}
-
-				recipe.Scale(scale);
-
-				break;
-			}
-		}
-
 		private static void ClearMenu(Recipe recipe) {
 			while (true) {
 				Console.Clear();
@@ -284,6 +259,31 @@ namespace POE {
 
 					continue;
 				}
+			}
+		}
+
+		private static void ScaleMenu(Recipe recipe) {
+			while (true) {
+				Console.Clear();
+				Console.Write("Scale factor: ");
+
+				string input = Console.ReadLine();
+
+				if (!double.TryParse(input, out double scale)) {
+					Console.ForegroundColor = ConsoleColor.Red;
+
+					Console.WriteLine("Invalid input");
+
+					Console.ForegroundColor = ConsoleColor.White;
+
+					System.Threading.Thread.Sleep(1000);
+
+					continue;
+				}
+
+				recipe.Scale(scale);
+
+				break;
 			}
 		}
 	}
