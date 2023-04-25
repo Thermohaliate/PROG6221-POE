@@ -3,12 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace POE {
 	internal class Program {
-		// main method ----------------------------------------------------- //
 		static void Main() {
 			MainMenu();
 		}
 
-		// private methods ------------------------------------------------- //
 		private static void MainMenu() {
 			Recipe recipe = new();
 
@@ -97,7 +95,7 @@ namespace POE {
 		private static void AddIngredientMenu(Recipe recipe) {
 			string name = default;
 			double quantity = default;
-			string measurement;
+			Measurements.Unit measurement;
 
 			while (true) {
 				string input;
@@ -146,14 +144,21 @@ namespace POE {
 					Console.WriteLine("Quantity: " + quantity);
 				}
 
-				Console.Write("Measurement: ");
+				Console.WriteLine("Measurement:");
+				Console.WriteLine("1. Milligram");
+				Console.WriteLine("2. Gram");
+				Console.WriteLine("3. Kilogram");
+				Console.WriteLine("4. Ounce");
+				Console.WriteLine("5. Pound");
+				Console.WriteLine("6. Custom");
+				Console.Write("> ");
 
 				input = Console.ReadLine();
 
-				if (!Regex.IsMatch(input, @"[a-zA-z]")) {
+				if (!int.TryParse(input, out int choice)) {
 					Console.ForegroundColor = ConsoleColor.Red;
 
-					Console.WriteLine("Invalid input");
+					Console.WriteLine("Invalid option");
 
 					Console.ForegroundColor = ConsoleColor.White;
 
@@ -162,7 +167,43 @@ namespace POE {
 					continue;
 				}
 
-				measurement = input;
+				switch (choice) {
+					case 1:
+						measurement = Measurements.Unit.Milligram;
+
+						break;
+					case 2:
+						measurement = Measurements.Unit.Gram;
+
+						break;
+					case 3:
+						measurement = Measurements.Unit.Kilogram;
+
+						break;
+					case 4:
+						measurement = Measurements.Unit.Ounce;
+
+						break;
+					case 5:
+						measurement = Measurements.Unit.Pound;
+
+						break;
+					case 6:
+						measurement = Measurements.Unit.Custom;
+
+						break;
+					default:
+						Console.ForegroundColor = ConsoleColor.Red;
+
+						Console.WriteLine("Invalid option");
+
+						Console.ForegroundColor = ConsoleColor.White;
+
+						System.Threading.Thread.Sleep(1000);
+
+						continue;
+
+				}
 
 				break;
 			}

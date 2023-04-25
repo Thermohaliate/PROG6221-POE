@@ -1,18 +1,13 @@
-using System;
-
 namespace POE {
 	internal class Step {
-		// private variables ----------------------------------------------- //
 		private readonly string title;
 		private readonly string description;
 
-		// internal constructors ------------------------------------------- //
 		internal Step(string title, string description) {
 			this.title = title;
 			this.description = description;
 		}
 
-		// internal properties --------------------------------------------- //
 		internal string Title {
 			get {
 				return this.title;
@@ -25,7 +20,6 @@ namespace POE {
 			}
 		}
 
-		// public methods -------------------------------------------------- //
 		public override string ToString() {
 			string description = this.description;
 			string newLine = this.description;

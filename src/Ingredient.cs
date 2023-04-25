@@ -1,30 +1,26 @@
 namespace POE {
 	internal class Ingredient {
-		// private variables ----------------------------------------------- //
 		private readonly string name;
-		private double quantity;
-		private readonly double originalQuantity;
-		private readonly string measurement;
+		private Measurements measurement;
+		private readonly Measurements originalMeasurement;
 
-		// internal constructors ------------------------------------------- //
 		internal Ingredient(string name, double quantity) {
 			this.name = name;
-			this.quantity = quantity;
-			this.originalQuantity = quantity;
-			this.measurement = "";
+			this.measurement = Measurements.Custom(quantity);
+			this.originalMeasurement = Measurements.Custom(quantity);
 		}
 
-		internal Ingredient(string name, double quantity, string measurement) {
+		internal Ingredient(
+			string name, double quantity, Measurements.Unit measurement
+		) {
 			this.name = name;
-			this.quantity = quantity;
-			this.originalQuantity = quantity;
-			this.measurement = measurement;
+			this.measurement = new Measurements(quantity, measurement);
+			this.originalMeasurement = new Measurements(quantity, measurement);
 		}
 
-		// internal properties --------------------------------------------- //
 		internal string Measurement {
 			get {
-				return this.measurement;
+				return this.measurement.unit.ToString();
 			}
 		}
 
@@ -36,25 +32,24 @@ namespace POE {
 
 		internal double Quantity {
 			get {
-				return this.quantity;
-			}
-			set {
-				this.quantity = value;
+				return this.measurement.value;
 			}
 		}
 
-		// internal methods ------------------------------------------------ //
 		internal void Reset() {
-			this.quantity = this.originalQuantity;
+			this.measurement = this.originalMeasurement;
 		}
 
-		// public methods -------------------------------------------------- //
+		internal void Scale(double scale) {
+			this.measurement.Scale(scale);
+		}
+
 		public override string ToString() {
-			if (this.measurement == "") {
-				return this.name + " (" + this.quantity + ")";
-			} else {
-				return this.name + " (" + this.quantity + " " + this.measurement + ")";
-			}
+			return string.Format(
+				"{0} ({1})",
+				this.name,
+				this.measurement.ToString()
+			);
 		}
 	}
 }
