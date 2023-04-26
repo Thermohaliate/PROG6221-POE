@@ -1,72 +1,68 @@
 using System.Collections.Generic;
 
-namespace POE {
-	internal class Recipe {
-		private readonly List<Ingredient> ingredients;
-		private readonly List<Step> steps;
+namespace POE;
 
-		internal Recipe() {
-			this.ingredients = new List<Ingredient>();
-			this.steps = new List<Step>();
+public class Recipe {
+	// fields --------------------------------------------------------------- //
+	private readonly List<Ingredient> _ingredients;
+	private readonly List<Step> _steps;
+	
+	// constructors --------------------------------------------------------- //
+	internal Recipe() {
+		this._ingredients = new List<Ingredient>();
+		this._steps = new List<Step>();
+	}
+	
+	// methods -------------------------------------------------------------- //
+	private static string CreateTitle(string text) {
+		string output = $"--- {text} ";
+		
+		return $"{output} {new string('-', 80 - (output.Length + 1))}\n";
+	}
+	
+	internal void AddIngredient(Ingredient ingredient) {
+		this._ingredients.Add(ingredient);
+	}
+
+	internal void AddStep(Step step) {
+		this._steps.Add(step);
+	}
+	
+	internal void Clear() {
+		this._ingredients.Clear();
+		this._steps.Clear();
+	}
+	
+	internal void Reset() {
+		foreach (Ingredient ingredient in this._ingredients) {
+			ingredient.Reset();
+		}
+	}
+	
+	internal void Scale(double factor) {
+		foreach (Ingredient ingredient in this._ingredients) {
+			ingredient.Scale(factor);
+		}
+	}
+	
+	public override string ToString() {
+		string border = $"{new string('=', 80)}\n";
+		string output = border;
+		
+		output += CreateTitle($"Ingredients ({this._ingredients.Count})");
+		
+		foreach (Ingredient ingredient in this._ingredients) {
+			output += $"{ingredient} \n";
 		}
 
-		private static string CreateTitle(string title) {
-			string output = "--- " + title + " ";
-
-			while (output.Length < 45) {
-				output += "-";
-			}
-
-			return output;
+		output += CreateTitle($"Steps ({this._steps.Count})");
+		
+		foreach (Step step in this._steps) {
+			output += $"{step} \n";
 		}
+		
+		output += border;
 
-		internal void AddIngredient(Ingredient ingredient) {
-			this.ingredients.Add(ingredient);
-		}
-
-		internal void AddStep(Step step) {
-			this.steps.Add(step);
-		}
-
-		internal void Clear() {
-			this.ingredients.Clear();
-			this.steps.Clear();
-		}
-
-		internal void Reset() {
-			foreach (Ingredient ingredient in this.ingredients) {
-				ingredient.Reset();
-			}
-		}
-
-		internal void Scale(double scale) {
-			foreach (Ingredient ingredient in this.ingredients) {
-				//ingredient.Quantity *= scale;
-				ingredient.Scale(scale);
-			}
-		}
-
-		public override string ToString() {
-			string seperator = "=============================================";
-			string output = seperator + "\n";
-
-			output += CreateTitle(
-				"Ingredients (" + this.ingredients.Count + ")"
-			) + "\n";
-
-			foreach (Ingredient ingredient in this.ingredients) {
-				output += ingredient.ToString() + "\n";
-			}
-
-			output += CreateTitle("Steps (" + this.steps.Count + ")") + "\n";
-
-			foreach (Step step in this.steps) {
-				output += step.ToString() + "\n";
-			}
-
-			output += seperator;
-
-			return output;
-		}
+		return output;
 	}
 }

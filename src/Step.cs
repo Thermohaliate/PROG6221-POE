@@ -1,51 +1,44 @@
-namespace POE {
-	internal class Step {
-		private readonly string title;
-		private readonly string description;
+namespace POE;
 
-		internal Step(string title, string description) {
-			this.title = title;
-			this.description = description;
-		}
+internal class Step {
+	// fields --------------------------------------------------------------- //
+	private readonly string _title;
+	private readonly string _description;
 
-		internal string Title {
-			get {
-				return this.title;
-			}
-		}
+	// constructors --------------------------------------------------------- //
+	internal Step(string title, string description) {
+		this._title = title;
+		this._description = description;
+	}
 
-		internal string Description {
-			get {
-				return this.description;
-			}
-		}
+	// methods -------------------------------------------------------------- //
+	public override string ToString() {
+		string description = this._description;
+		string line = this._description;
+		int index = 0;
 
-		public override string ToString() {
-			string description = this.description;
-			string newLine = this.description;
-			int index = 0;
+		while (line.Length > 80) {
+			index += 80;
 
-			while (newLine.Length > 50) {
-				index += 50;
-
-				while (description[index] != ' ') {
-					index--;
-				}
-
-				description = string.Concat(
-					description[..index],
-					"\n",
-					description.Substring(
-						index + 1, (description.Length - index) - 1
-					)
-				);
-
-				newLine = description.Substring(
-					index + 1, (description.Length - index) - 1
-				);
+			while (description[index] != ' ') {
+				index--;
 			}
 
-			return this.title + ":\n" + description;
+			description = string.Concat(
+				description[..index],
+				"\n",
+				description.Substring(
+					index + 1,
+					(description.Length - index) - 1
+				)
+			);
+
+			line = description.Substring(
+				index + 1,
+				(description.Length - index) - 1
+			);
 		}
+
+		return $"{this._title}:\n{description}";
 	}
 }
