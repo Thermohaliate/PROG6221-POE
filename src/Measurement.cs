@@ -99,6 +99,10 @@ internal class Measurement {
 				return $"({this._quantity.ToString()})";
 		}
 		
+		if (this._quantity >= 1 && this._quantity % 1 == 0) {
+			return $"({this._quantity} {this._symbols[this._unit]})";
+		}
+		
 		string output = $"({Math.Floor(this._quantity)} " +
 			$"{this._symbols[this._unit]}, ";
 		double value = this._quantity;
