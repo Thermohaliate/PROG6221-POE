@@ -13,6 +13,10 @@ internal static class Program {
 	}
 	
 	// methods -------------------------------------------------------------- //
+	/// <summary>
+	/// Open the add ingredient menu.
+	/// </summary>
+	/// <param name="recipe"></param>
 	private static void AddIngredientMenu(Recipe recipe) {
 		string name = default;
 		bool nameDone = false;
@@ -114,6 +118,10 @@ internal static class Program {
 		recipe.AddIngredient(new Ingredient(name, new Measurement(quantity, unit)));
 	}
 	
+	/// <summary>
+	/// Open the add step menu.
+	/// </summary>
+	/// <param name="recipe"></param>
 	private static void AddStepMenu(Recipe recipe) {
 		string title = default;
 		bool titleDone = false;
@@ -171,6 +179,10 @@ internal static class Program {
 		recipe.AddStep(new Step(title, description));
 	}
 	
+	/// <summary>
+	/// Open the clear menu.
+	/// </summary>
+	/// <param name="recipe"></param>
 	private static void ClearMenu(Recipe recipe) {
 		while (true) {
 			Console.Clear();
@@ -209,6 +221,10 @@ internal static class Program {
 		}
 	}
 	
+	/// <summary>
+	/// Open the main menu.
+	/// </summary>
+	/// <param name="recipe"></param>
 	private static void MainMenu(Recipe recipe) {
 		while (true) {
 			Console.Clear();
@@ -276,6 +292,10 @@ internal static class Program {
 		}
 	}
 
+	/// <summary>
+	/// Open the scale menu.
+	/// </summary>
+	/// <param name="recipe"></param>
 	private static void ScaleMenu(Recipe recipe) {
 		while (true) {
 			Console.Clear();

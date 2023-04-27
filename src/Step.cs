@@ -1,5 +1,8 @@
 namespace POE;
 
+/// <summary>
+/// Class to store and handle a step.
+/// </summary>
 internal class Step {
 	// fields --------------------------------------------------------------- //
 	private readonly string _title;

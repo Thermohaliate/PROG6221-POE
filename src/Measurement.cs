@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace POE;
 
+/// <summary>
+/// Class to store and handle a measurement.
+/// </summary>
 internal class Measurement {
 	// constant fields ------------------------------------------------------ //
 	private readonly Dictionary<UnitType, string> _symbols = new() {
@@ -24,6 +27,9 @@ internal class Measurement {
 	}
 
 	// enums ---------------------------------------------------------------- //
+	/// <summary>
+	/// Different types of measurement units.
+	/// </summary>
 	internal enum UnitType {
 		Teaspoon,
 		Tablespoon,
@@ -43,6 +49,9 @@ internal class Measurement {
 	}
 
 	// methods -------------------------------------------------------------- //
+	/// <summary>
+	/// Normalise the values by converting it to a smaller if necessary.
+	/// </summary>
 	private void Normalise() {
 		switch (this._unit) {
 			case UnitType.Teaspoon:
@@ -72,6 +81,10 @@ internal class Measurement {
 		}
 	}
 	
+	/// <summary>
+	/// Scale the measurement by the given factor.
+	/// </summary>
+	/// <param name="factor"></param>
 	internal void Scale(double factor) {
 		this._quantity *= factor;
 
