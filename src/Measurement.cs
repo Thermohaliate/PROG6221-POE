@@ -42,7 +42,7 @@ internal class Measurement {
 		get => this._quantity;
 		set => this._quantity = value;
 	}
-	
+
 	internal UnitType Unit {
 		get => this._unit;
 		set => this._unit = value;
@@ -80,7 +80,7 @@ internal class Measurement {
 				break;
 		}
 	}
-	
+
 	/// <summary>
 	/// Scale the measurement by the given factor.
 	/// </summary>
@@ -90,7 +90,7 @@ internal class Measurement {
 
 		this.Normalise();
 	}
-	
+
 	public override string ToString() {
 		switch (this._unit) {
 			case UnitType.Teaspoon:
@@ -98,11 +98,11 @@ internal class Measurement {
 			case UnitType.Custom:
 				return $"({this._quantity.ToString()})";
 		}
-		
+
 		if (this._quantity >= 1 && this._quantity % 1 == 0) {
 			return $"({this._quantity} {this._symbols[this._unit]})";
 		}
-		
+
 		string output = $"({Math.Floor(this._quantity)} " +
 			$"{this._symbols[this._unit]}, ";
 		double value = this._quantity;

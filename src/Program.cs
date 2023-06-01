@@ -8,10 +8,10 @@ internal static class Program {
 	// main method ---------------------------------------------------------- //
 	private static void Main() {
 		Recipe recipe = new();
-		
+
 		MainMenu(recipe);
 	}
-	
+
 	// methods -------------------------------------------------------------- //
 	/// <summary>
 	/// Open the add ingredient menu.
@@ -117,7 +117,7 @@ internal static class Program {
 
 		recipe.AddIngredient(new Ingredient(name, new Measurement(quantity, unit)));
 	}
-	
+
 	/// <summary>
 	/// Open the add step menu.
 	/// </summary>
@@ -178,7 +178,7 @@ internal static class Program {
 
 		recipe.AddStep(new Step(title, description));
 	}
-	
+
 	/// <summary>
 	/// Open the clear menu.
 	/// </summary>
@@ -195,13 +195,13 @@ internal static class Program {
 			switch (key.Key) {
 				case ConsoleKey.Y:
 					recipe.Clear();
-				
+
 					Console.ForegroundColor = ConsoleColor.Green;
-				
+
 					Console.WriteLine("\nRecipe cleared");
-				
+
 					Console.ForegroundColor = ConsoleColor.White;
-				
+
 					Thread.Sleep(1000);
 
 					return;
@@ -209,18 +209,18 @@ internal static class Program {
 					return;
 				default:
 					Console.ForegroundColor = ConsoleColor.Red;
-				
+
 					Console.WriteLine("\nInvalid input");
-				
+
 					Console.ForegroundColor = ConsoleColor.White;
-				
+
 					Thread.Sleep(1000);
-				
+
 					continue;
 			}
 		}
 	}
-	
+
 	/// <summary>
 	/// Open the main menu.
 	/// </summary>
@@ -262,13 +262,13 @@ internal static class Program {
 					break;
 				case ConsoleKey.D5 or ConsoleKey.NumPad5:
 					recipe.Reset();
-					
+
 					Console.ForegroundColor = ConsoleColor.Green;
-					
+
 					Console.WriteLine("\nRecipe reset");
-					
+
 					Console.ForegroundColor = ConsoleColor.White;
-					
+
 					Thread.Sleep(1000);
 
 					break;

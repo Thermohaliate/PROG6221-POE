@@ -13,7 +13,10 @@ public class Ingredient {
 	internal Ingredient(string name, Measurement measurement) {
 		this._name = name;
 		this._measurement = measurement;
-		this._originalMeasurement = new(measurement.Quantity, measurement.Unit);
+		this._originalMeasurement = new Measurement(
+			measurement.Quantity,
+			measurement.Unit
+		);
 	}
 
 	// methods -------------------------------------------------------------- //
@@ -32,7 +35,7 @@ public class Ingredient {
 	internal void Scale(double factor) {
 		this._measurement.Scale(factor);
 	}
-	
+
 	public override string ToString() {
 		return $"{this._name} {this._measurement}";
 	}
