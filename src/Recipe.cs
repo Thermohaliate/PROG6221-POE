@@ -7,14 +7,23 @@ namespace POE;
 /// </summary>
 public class Recipe {
 	// fields --------------------------------------------------------------- //
+	private readonly string _name;
 	private readonly List<Ingredient> _ingredients;
 	private readonly List<Step> _steps;
 
 	// constructors --------------------------------------------------------- //
-	internal Recipe() {
+	internal Recipe(string name) {
+		this._name = name;
 		this._ingredients = new List<Ingredient>();
 		this._steps = new List<Step>();
 	}
+	
+	// properties ----------------------------------------------------------- //
+	internal List<Ingredient> Ingredients => this._ingredients;
+	
+	internal string Name => this._name;
+
+	internal List<Step> Steps => this._steps;
 
 	// methods -------------------------------------------------------------- //
 	/// <summary>
