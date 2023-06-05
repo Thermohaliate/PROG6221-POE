@@ -10,30 +10,6 @@ internal static class Program {
 	private static void Main() {
 		SortedList<string, Recipe> recipes = new();
 
-		recipes.Add("Mashed Potatoes", new Recipe("Mashed Potatoes"));
-		recipes.Add("Boiled Rice", new Recipe("Boiled Rice"));
-
-		recipes["Mashed Potatoes"].AddIngredient(
-			new Ingredient(
-				"Potato",
-				new Measurement(2, Measurement.UnitType.Custom)
-			)
-		);
-		recipes["Mashed Potatoes"]
-			.AddStep(new Step("Mash", "Mash the potatoes"));
-		recipes["Boiled Rice"].AddIngredient(
-			new Ingredient("Rice", new Measurement(3, Measurement.UnitType.Cup))
-		);
-		recipes["Boiled Rice"].AddIngredient(
-			new Ingredient(
-				"Water",
-				new Measurement(1, Measurement.UnitType.Cup)
-			)
-		);
-		recipes["Boiled Rice"].AddStep(
-			new Step("Mix", "Mix the rice and the water together")
-		);
-
 		MainMenu(recipes);
 	}
 
