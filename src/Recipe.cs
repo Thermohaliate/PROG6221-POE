@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace POE;
 
@@ -17,10 +18,10 @@ public class Recipe {
 		this._ingredients = new List<Ingredient>();
 		this._steps = new List<Step>();
 	}
-	
+
 	// properties ----------------------------------------------------------- //
 	internal List<Ingredient> Ingredients => this._ingredients;
-	
+
 	internal string Name => this._name;
 
 	internal List<Step> Steps => this._steps;
@@ -87,13 +88,21 @@ public class Recipe {
 		output += CreateTitle($"Ingredients ({this._ingredients.Count})");
 
 		foreach (Ingredient ingredient in this._ingredients) {
-			output += $"{ingredient} \n";
+			output += $"{ingredient}\n";
 		}
 
 		output += CreateTitle($"Steps ({this._steps.Count})");
 
 		foreach (Step step in this._steps) {
-			output += $"{step} \n";
+			output += $"{step}\n";
+		}
+
+		output += CreateTitle(
+			$"Calories ({this._ingredients.Sum(ingredient => ingredient.Calories)})"
+		);
+
+		foreach (Ingredient ingredient in this._ingredients) {
+			output += $"{ingredient.Name}: {ingredient.Calories}\n";
 		}
 
 		output += border;

@@ -23,7 +23,11 @@ internal static class Program {
 		bool nameDone = false;
 		double quantity = default;
 		bool quantityDone = false;
-		Measurement.UnitType unit;
+		Measurement.UnitType unit = default;
+		bool unitDone = false;
+		int calories = default;
+		bool caloriesDone = false;
+		Ingredient.FoodGroup foodGroup;
 
 		while (true) {
 			string input;
@@ -75,30 +79,113 @@ internal static class Program {
 				Console.WriteLine($"Quantity: {quantity}");
 			}
 
-			Console.WriteLine("Measurement:");
-			Console.WriteLine("1. Teaspoon");
-			Console.WriteLine("2. Tablespoon");
-			Console.WriteLine("3. Cup");
-			Console.WriteLine("4. Custom");
+			if (!unitDone) {
+				Console.WriteLine("Measurement:");
+				Console.WriteLine("1. Teaspoon");
+				Console.WriteLine("2. Tablespoon");
+				Console.WriteLine("3. Cup");
+				Console.WriteLine("4. Custom");
+				Console.Write("> ");
+
+				ConsoleKeyInfo measurementChoice = Console.ReadKey();
+
+				switch (measurementChoice.Key) {
+					case ConsoleKey.D1 or ConsoleKey.NumPad1:
+						unit = Measurement.UnitType.Teaspoon;
+
+						break;
+					case ConsoleKey.D2 or ConsoleKey.NumPad2:
+						unit = Measurement.UnitType.Tablespoon;
+
+						break;
+					case ConsoleKey.D3 or ConsoleKey.NumPad3:
+						unit = Measurement.UnitType.Cup;
+
+						break;
+					case ConsoleKey.D4 or ConsoleKey.NumPad4:
+						unit = Measurement.UnitType.Custom;
+
+						break;
+					default:
+						Console.ForegroundColor = ConsoleColor.Red;
+
+						Console.WriteLine("\nInvalid option");
+
+						Console.ForegroundColor = ConsoleColor.White;
+
+						Thread.Sleep(1000);
+
+						continue;
+				}
+
+				unitDone = true;
+
+				Console.WriteLine();
+			} else {
+				Console.WriteLine($"Measurement: {unit}");
+			}
+
+			if (!caloriesDone) {
+				Console.Write("Calories: ");
+
+				input = Console.ReadLine();
+
+				if (!int.TryParse(input, out calories)) {
+					Console.ForegroundColor = ConsoleColor.Red;
+
+					Console.WriteLine("Invalid input");
+
+					Console.ForegroundColor = ConsoleColor.White;
+
+					Thread.Sleep(1000);
+
+					continue;
+				}
+
+				caloriesDone = true;
+			} else {
+				Console.WriteLine($"Calories: {calories}");
+			}
+
+			Console.WriteLine("Food Group:");
+			Console.WriteLine("1. Carbohydrate");
+			Console.WriteLine("2. Fibre");
+			Console.WriteLine("3. Fat");
+			Console.WriteLine("4. Mineral");
+			Console.WriteLine("5. Protein");
+			Console.WriteLine("6. Vitamin");
+			Console.WriteLine("7. Water");
 			Console.Write("> ");
 
-			ConsoleKeyInfo choice = Console.ReadKey();
+			ConsoleKeyInfo foodGroupChoice = Console.ReadKey();
 
-			switch (choice.Key) {
+			switch (foodGroupChoice.Key) {
 				case ConsoleKey.D1 or ConsoleKey.NumPad1:
-					unit = Measurement.UnitType.Teaspoon;
+					foodGroup = Ingredient.FoodGroup.Carbohydrate;
 
 					break;
 				case ConsoleKey.D2 or ConsoleKey.NumPad2:
-					unit = Measurement.UnitType.Tablespoon;
+					foodGroup = Ingredient.FoodGroup.Fibre;
 
 					break;
 				case ConsoleKey.D3 or ConsoleKey.NumPad3:
-					unit = Measurement.UnitType.Cup;
+					foodGroup = Ingredient.FoodGroup.Fat;
 
 					break;
 				case ConsoleKey.D4 or ConsoleKey.NumPad4:
-					unit = Measurement.UnitType.Custom;
+					foodGroup = Ingredient.FoodGroup.Mineral;
+
+					break;
+				case ConsoleKey.D5 or ConsoleKey.NumPad5:
+					foodGroup = Ingredient.FoodGroup.Protein;
+
+					break;
+				case ConsoleKey.D6 or ConsoleKey.NumPad6:
+					foodGroup = Ingredient.FoodGroup.Vitamin;
+
+					break;
+				case ConsoleKey.D7 or ConsoleKey.NumPad7:
+					foodGroup = Ingredient.FoodGroup.Water;
 
 					break;
 				default:
@@ -117,7 +204,12 @@ internal static class Program {
 		}
 
 		recipe.AddIngredient(
-			new Ingredient(name, new Measurement(quantity, unit))
+			new Ingredient(
+				name,
+				new Measurement(quantity, unit),
+				calories,
+				foodGroup
+			)
 		);
 	}
 
@@ -349,7 +441,7 @@ internal static class Program {
 			Console.WriteLine("1. Add ingredient");
 			Console.WriteLine("2. Add step");
 			Console.WriteLine("3. Scale recipe");
-			Console.WriteLine("4. Show recipe");
+			Console.WriteLine("4. View recipe");
 			Console.WriteLine("5. Reset recipe");
 			Console.WriteLine("6. Clear recipe");
 			Console.WriteLine("7. Exit");
