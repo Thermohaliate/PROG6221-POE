@@ -20,6 +20,9 @@ public class Recipe {
 	}
 
 	// properties ----------------------------------------------------------- //
+	internal int Calories =>
+		this._ingredients.Sum(ingredient => ingredient.Calories);
+
 	internal List<Ingredient> Ingredients => this._ingredients;
 
 	internal string Name => this._name;

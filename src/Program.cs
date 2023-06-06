@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 namespace POE;
 
 internal static class Program {
+	// delegates ------------------------------------------------------------ //
+	private delegate void Warn(string message);
+
 	// main method ---------------------------------------------------------- //
 	private static void Main() {
 		SortedList<string, Recipe> recipes = new();
@@ -215,6 +218,7 @@ internal static class Program {
 
 	private static void AddRecipeMenu(SortedList<string, Recipe> recipes) {
 		string name;
+		Warn calorieWarning = PrintWarning;
 
 		while (true) {
 			Console.Clear();
@@ -241,6 +245,11 @@ internal static class Program {
 
 		while (true) {
 			Console.Clear();
+
+			if (recipe.Calories > 300) {
+				calorieWarning("This recipe is high in calories");
+			}
+
 			Console.WriteLine("1. Add ingredient");
 			Console.WriteLine("2. Add step");
 			Console.WriteLine("3. Done");
@@ -435,7 +444,16 @@ internal static class Program {
 		}
 	}
 
+	private static void PrintWarning(string message) {
+		Console.ForegroundColor = ConsoleColor.Red;
+
+		Console.WriteLine($"WARNING: {message}");
+		Console.ResetColor();
+	}
+
 	private static void RecipeMenu(Recipe recipe) {
+		Warn calorieWarning = PrintWarning;
+
 		while (true) {
 			Console.Clear();
 			Console.WriteLine("1. Add ingredient");
@@ -464,7 +482,10 @@ internal static class Program {
 					break;
 				case ConsoleKey.D4 or ConsoleKey.NumPad4:
 					Console.Clear();
-					Console.WriteLine(recipe.ToString());
+					Console.Write(recipe.ToString());
+
+					calorieWarning("This recipe is high in calories");
+
 					Console.WriteLine("Press any key to continue...");
 					Console.ReadKey();
 
