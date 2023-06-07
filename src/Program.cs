@@ -1,17 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Text.RegularExpressions;
 
 namespace POE;
 
 internal static class Program {
+	// delegates ------------------------------------------------------------ //
+	/// <summary>
+	/// Print a warning message.
+	/// </summary>
+	private delegate void Warn(string message);
+
 	// main method ---------------------------------------------------------- //
 	private static void Main() {
-		Recipe recipe = new();
-		
-		MainMenu(recipe);
+		SortedList<string, Recipe> recipes = new();
+
+		MainMenu(recipes);
 	}
-	
+
 	// methods -------------------------------------------------------------- //
 	/// <summary>
 	/// Open the add ingredient menu.
@@ -22,7 +29,11 @@ internal static class Program {
 		bool nameDone = false;
 		double quantity = default;
 		bool quantityDone = false;
-		Measurement.UnitType unit;
+		Measurement.UnitType unit = default;
+		bool unitDone = false;
+		int calories = default;
+		bool caloriesDone = false;
+		Ingredient.FoodGroup foodGroup;
 
 		while (true) {
 			string input;
@@ -74,30 +85,113 @@ internal static class Program {
 				Console.WriteLine($"Quantity: {quantity}");
 			}
 
-			Console.WriteLine("Measurement:");
-			Console.WriteLine("1. Teaspoon");
-			Console.WriteLine("2. Tablespoon");
-			Console.WriteLine("3. Cup");
-			Console.WriteLine("4. Custom");
+			if (!unitDone) {
+				Console.WriteLine("Measurement:");
+				Console.WriteLine("1. Teaspoon");
+				Console.WriteLine("2. Tablespoon");
+				Console.WriteLine("3. Cup");
+				Console.WriteLine("4. Custom");
+				Console.Write("> ");
+
+				ConsoleKeyInfo measurementChoice = Console.ReadKey();
+
+				switch (measurementChoice.Key) {
+					case ConsoleKey.D1 or ConsoleKey.NumPad1:
+						unit = Measurement.UnitType.Teaspoon;
+
+						break;
+					case ConsoleKey.D2 or ConsoleKey.NumPad2:
+						unit = Measurement.UnitType.Tablespoon;
+
+						break;
+					case ConsoleKey.D3 or ConsoleKey.NumPad3:
+						unit = Measurement.UnitType.Cup;
+
+						break;
+					case ConsoleKey.D4 or ConsoleKey.NumPad4:
+						unit = Measurement.UnitType.Custom;
+
+						break;
+					default:
+						Console.ForegroundColor = ConsoleColor.Red;
+
+						Console.WriteLine("\nInvalid option");
+
+						Console.ForegroundColor = ConsoleColor.White;
+
+						Thread.Sleep(1000);
+
+						continue;
+				}
+
+				unitDone = true;
+
+				Console.WriteLine();
+			} else {
+				Console.WriteLine($"Measurement: {unit}");
+			}
+
+			if (!caloriesDone) {
+				Console.Write("Calories: ");
+
+				input = Console.ReadLine();
+
+				if (!int.TryParse(input, out calories)) {
+					Console.ForegroundColor = ConsoleColor.Red;
+
+					Console.WriteLine("Invalid input");
+
+					Console.ForegroundColor = ConsoleColor.White;
+
+					Thread.Sleep(1000);
+
+					continue;
+				}
+
+				caloriesDone = true;
+			} else {
+				Console.WriteLine($"Calories: {calories}");
+			}
+
+			Console.WriteLine("Food Group:");
+			Console.WriteLine("1. Carbohydrate");
+			Console.WriteLine("2. Fibre");
+			Console.WriteLine("3. Fat");
+			Console.WriteLine("4. Mineral");
+			Console.WriteLine("5. Protein");
+			Console.WriteLine("6. Vitamin");
+			Console.WriteLine("7. Water");
 			Console.Write("> ");
 
-			ConsoleKeyInfo choice = Console.ReadKey();
+			ConsoleKeyInfo foodGroupChoice = Console.ReadKey();
 
-			switch (choice.Key) {
+			switch (foodGroupChoice.Key) {
 				case ConsoleKey.D1 or ConsoleKey.NumPad1:
-					unit = Measurement.UnitType.Teaspoon;
+					foodGroup = Ingredient.FoodGroup.Carbohydrate;
 
 					break;
 				case ConsoleKey.D2 or ConsoleKey.NumPad2:
-					unit = Measurement.UnitType.Tablespoon;
+					foodGroup = Ingredient.FoodGroup.Fibre;
 
 					break;
 				case ConsoleKey.D3 or ConsoleKey.NumPad3:
-					unit = Measurement.UnitType.Cup;
+					foodGroup = Ingredient.FoodGroup.Fat;
 
 					break;
 				case ConsoleKey.D4 or ConsoleKey.NumPad4:
-					unit = Measurement.UnitType.Custom;
+					foodGroup = Ingredient.FoodGroup.Mineral;
+
+					break;
+				case ConsoleKey.D5 or ConsoleKey.NumPad5:
+					foodGroup = Ingredient.FoodGroup.Protein;
+
+					break;
+				case ConsoleKey.D6 or ConsoleKey.NumPad6:
+					foodGroup = Ingredient.FoodGroup.Vitamin;
+
+					break;
+				case ConsoleKey.D7 or ConsoleKey.NumPad7:
+					foodGroup = Ingredient.FoodGroup.Water;
 
 					break;
 				default:
@@ -115,9 +209,106 @@ internal static class Program {
 			break;
 		}
 
-		recipe.AddIngredient(new Ingredient(name, new Measurement(quantity, unit)));
+		recipe.AddIngredient(
+			new Ingredient(
+				name,
+				new Measurement(quantity, unit),
+				calories,
+				foodGroup
+			)
+		);
 	}
-	
+
+	/// <summary>
+	/// Open the add recipe menu.
+	/// </summary>
+	/// <param name="recipes"></param>
+	private static void AddRecipeMenu(SortedList<string, Recipe> recipes) {
+		string name;
+		Warn calorieWarning = PrintWarning;
+
+		while (true) {
+			Console.Clear();
+			Console.Write("Enter recipe name: ");
+
+			name = Console.ReadLine();
+
+			if (!Regex.IsMatch(name!, @"[a-zA-z]")) {
+				Console.ForegroundColor = ConsoleColor.Red;
+
+				Console.WriteLine("Invalid input");
+
+				Console.ForegroundColor = ConsoleColor.White;
+
+				Thread.Sleep(1000);
+
+				continue;
+			}
+
+			break;
+		}
+
+		Recipe recipe = new(name);
+
+		while (true) {
+			Console.Clear();
+
+			if (recipe.Calories > 300) {
+				calorieWarning("This recipe is high in calories");
+			}
+
+			Console.WriteLine("1. Add ingredient");
+			Console.WriteLine("2. Add step");
+			Console.WriteLine("3. Done");
+			Console.Write("> ");
+
+			ConsoleKeyInfo input = Console.ReadKey();
+
+			switch (input.Key) {
+				case ConsoleKey.D1 or ConsoleKey.NumPad1:
+					AddIngredientMenu(recipe);
+
+					break;
+				case ConsoleKey.D2 or ConsoleKey.NumPad2:
+					AddStepMenu(recipe);
+
+					break;
+				case ConsoleKey.D3 or ConsoleKey.NumPad3:
+					if (
+						!(recipe.Ingredients.Count > 0) ||
+						!(recipe.Steps.Count > 0)
+					) {
+						Console.ForegroundColor = ConsoleColor.Red;
+
+						Console.WriteLine(
+							"\nRecipe must have at least one ingredient and " +
+							"one step"
+						);
+
+						Console.ForegroundColor = ConsoleColor.White;
+
+						Thread.Sleep(1000);
+
+						break;
+					}
+
+					recipes.Add(recipe.Name, recipe);
+
+					return;
+				default:
+					Console.ForegroundColor = ConsoleColor.Red;
+
+					Console.WriteLine("\nInvalid option");
+
+					Console.ForegroundColor = ConsoleColor.White;
+
+					Thread.Sleep(1000);
+
+					break;
+			}
+		}
+	}
+
 	/// <summary>
 	/// Open the add step menu.
 	/// </summary>
@@ -178,12 +369,12 @@ internal static class Program {
 
 		recipe.AddStep(new Step(title, description));
 	}
-	
+
 	/// <summary>
 	/// Open the clear menu.
 	/// </summary>
 	/// <param name="recipe"></param>
-	private static void ClearMenu(Recipe recipe) {
+	private static void ClearRecipeMenu(Recipe recipe) {
 		while (true) {
 			Console.Clear();
 			Console.Write(
@@ -195,13 +386,13 @@ internal static class Program {
 			switch (key.Key) {
 				case ConsoleKey.Y:
 					recipe.Clear();
-				
+
 					Console.ForegroundColor = ConsoleColor.Green;
-				
+
 					Console.WriteLine("\nRecipe cleared");
-				
+
 					Console.ForegroundColor = ConsoleColor.White;
-				
+
 					Thread.Sleep(1000);
 
 					return;
@@ -209,30 +400,81 @@ internal static class Program {
 					return;
 				default:
 					Console.ForegroundColor = ConsoleColor.Red;
-				
+
 					Console.WriteLine("\nInvalid input");
-				
+
 					Console.ForegroundColor = ConsoleColor.White;
-				
+
 					Thread.Sleep(1000);
-				
+
 					continue;
 			}
 		}
 	}
-	
+
 	/// <summary>
 	/// Open the main menu.
 	/// </summary>
-	/// <param name="recipe"></param>
-	private static void MainMenu(Recipe recipe) {
+	/// <param name="recipes"></param>
+	private static void MainMenu(SortedList<string, Recipe> recipes) {
 		while (true) {
 			Console.Clear();
-			Console.WriteLine("Enter the number of the selected option:");
+			Console.WriteLine("1. Add recipe");
+			Console.WriteLine("2. View recipes");
+			Console.WriteLine("3. Exit");
+			Console.Write("> ");
+
+			ConsoleKeyInfo input = Console.ReadKey();
+
+			switch (input.Key) {
+				case ConsoleKey.D1 or ConsoleKey.NumPad1:
+					AddRecipeMenu(recipes);
+
+					break;
+				case ConsoleKey.D2 or ConsoleKey.NumPad2:
+					ViewRecipesMenu(recipes);
+
+					break;
+				case ConsoleKey.D3 or ConsoleKey.NumPad3:
+					return;
+				default:
+					Console.ForegroundColor = ConsoleColor.Red;
+
+					Console.WriteLine("\nInvalid option");
+
+					Console.ForegroundColor = ConsoleColor.White;
+
+					Thread.Sleep(1000);
+
+					break;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Print a warning message.
+	/// </summary>
+	/// <param name="message"></param>
+	private static void PrintWarning(string message) {
+		Console.ForegroundColor = ConsoleColor.Red;
+
+		Console.WriteLine($"WARNING: {message}");
+		Console.ResetColor();
+	}
+
+	/// <summary>
+	/// Open the recipe menu.
+	/// </summary>
+	/// <param name="recipe"></param>
+	private static void RecipeMenu(Recipe recipe) {
+		Warn calorieWarning = PrintWarning;
+
+		while (true) {
+			Console.Clear();
 			Console.WriteLine("1. Add ingredient");
 			Console.WriteLine("2. Add step");
 			Console.WriteLine("3. Scale recipe");
-			Console.WriteLine("4. Show recipe");
+			Console.WriteLine("4. View recipe");
 			Console.WriteLine("5. Reset recipe");
 			Console.WriteLine("6. Clear recipe");
 			Console.WriteLine("7. Exit");
@@ -255,39 +497,32 @@ internal static class Program {
 					break;
 				case ConsoleKey.D4 or ConsoleKey.NumPad4:
 					Console.Clear();
-					Console.WriteLine(recipe.ToString());
+					Console.Write(recipe.ToString());
+
+					calorieWarning("This recipe is high in calories");
+
 					Console.WriteLine("Press any key to continue...");
 					Console.ReadKey();
 
 					break;
 				case ConsoleKey.D5 or ConsoleKey.NumPad5:
 					recipe.Reset();
-					
+
 					Console.ForegroundColor = ConsoleColor.Green;
-					
+
 					Console.WriteLine("\nRecipe reset");
-					
+
 					Console.ForegroundColor = ConsoleColor.White;
-					
+
 					Thread.Sleep(1000);
 
 					break;
 				case ConsoleKey.D6 or ConsoleKey.NumPad6:
-					ClearMenu(recipe);
+					ClearRecipeMenu(recipe);
 
 					break;
 				case ConsoleKey.D7 or ConsoleKey.NumPad7:
 					return;
-				default:
-					Console.ForegroundColor = ConsoleColor.Red;
-
-					Console.WriteLine("\nInvalid option");
-
-					Console.ForegroundColor = ConsoleColor.White;
-
-					Thread.Sleep(1000);
-
-					break;
 			}
 		}
 	}
@@ -318,6 +553,81 @@ internal static class Program {
 			recipe.Scale(scale);
 
 			break;
+		}
+	}
+
+	/// <summary>
+	///  Open the view recipes menu.
+	/// </summary>
+	/// <param name="recipes"></param>
+	private static void ViewRecipesMenu(SortedList<string, Recipe> recipes) {
+		while (true) {
+			Console.Clear();
+
+			foreach (string key in recipes.Keys) {
+				Console.WriteLine($"- {key}");
+			}
+
+			Console.WriteLine("\n1. Select recipe");
+			Console.WriteLine("2. Exit");
+			Console.Write("> ");
+
+			ConsoleKeyInfo input = Console.ReadKey();
+
+			switch (input.Key) {
+				case ConsoleKey.D1 or ConsoleKey.NumPad1:
+					while (true) {
+						Console.Clear();
+
+						foreach (string key in recipes.Keys) {
+							Console.WriteLine(
+								$"{recipes.IndexOfKey(key) + 1}. {key}"
+							);
+						}
+
+						Console.Write("\nRecipe number: ");
+
+						if (!int.TryParse(Console.ReadLine(), out int recipe)) {
+							Console.ForegroundColor = ConsoleColor.Red;
+
+							Console.WriteLine("Invalid option");
+
+							Console.ForegroundColor = ConsoleColor.White;
+
+							Thread.Sleep(1000);
+
+							continue;
+						}
+
+						if (recipe > recipes.Count) {
+							Console.ForegroundColor = ConsoleColor.Red;
+
+							Console.WriteLine("Invalid option");
+
+							Console.ForegroundColor = ConsoleColor.White;
+
+							Thread.Sleep(1000);
+
+							continue;
+						}
+
+						RecipeMenu(recipes.GetValueAtIndex(recipe - 1));
+
+						return;
+					}
+				case ConsoleKey.D2 or ConsoleKey.NumPad2:
+					return;
+				default:
+					Console.ForegroundColor = ConsoleColor.Red;
+
+					Console.WriteLine("\nInvalid option");
+
+					Console.ForegroundColor = ConsoleColor.White;
+
+					Thread.Sleep(1000);
+
+					break;
+			}
 		}
 	}
 }
