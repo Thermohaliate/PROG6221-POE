@@ -7,6 +7,9 @@ namespace POE;
 
 internal static class Program {
 	// delegates ------------------------------------------------------------ //
+	/// <summary>
+	/// Print a warning message.
+	/// </summary>
 	private delegate void Warn(string message);
 
 	// main method ---------------------------------------------------------- //
@@ -216,6 +219,10 @@ internal static class Program {
 		);
 	}
 
+	/// <summary>
+	/// Open the add recipe menu.
+	/// </summary>
+	/// <param name="recipes"></param>
 	private static void AddRecipeMenu(SortedList<string, Recipe> recipes) {
 		string name;
 		Warn calorieWarning = PrintWarning;
@@ -444,6 +451,10 @@ internal static class Program {
 		}
 	}
 
+	/// <summary>
+	/// Print a warning message.
+	/// </summary>
+	/// <param name="message"></param>
 	private static void PrintWarning(string message) {
 		Console.ForegroundColor = ConsoleColor.Red;
 
@@ -451,6 +462,10 @@ internal static class Program {
 		Console.ResetColor();
 	}
 
+	/// <summary>
+	/// Open the recipe menu.
+	/// </summary>
+	/// <param name="recipe"></param>
 	private static void RecipeMenu(Recipe recipe) {
 		Warn calorieWarning = PrintWarning;
 
@@ -541,6 +556,10 @@ internal static class Program {
 		}
 	}
 
+	/// <summary>
+	///  Open the view recipes menu.
+	/// </summary>
+	/// <param name="recipes"></param>
 	private static void ViewRecipesMenu(SortedList<string, Recipe> recipes) {
 		while (true) {
 			Console.Clear();
