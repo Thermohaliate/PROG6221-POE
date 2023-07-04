@@ -1,0 +1,9 @@
+﻿<av:Application
+	x:Class="POE.App"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	StartupUri="ui/MainWindow.xaml">
+
+	<av:Application.Resources></av:Application.Resources>
+</av:Application>
