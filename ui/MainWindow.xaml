@@ -1,0 +1,486 @@
+﻿<Window
+	x:Class="POE.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	Title="Recipe Manager"
+	Width="400"
+	Height="800"
+	ResizeMode="CanResize">
+
+	<Grid>
+		<Canvas
+			x:Name="HomePage">
+
+			<StackPanel>
+				<Label
+					Content="Saved Recipes"
+					Height="30"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"/>
+
+				<StackPanel
+					Orientation="Horizontal">
+
+					<Label
+						Content="Food Group Filter:"
+						Width="112"
+						Height="25"/>
+
+					<ComboBox
+						x:Name="HomePageFoodGroupComboBox"
+						Width="150"
+						Height="25">
+
+						<ComboBoxItem
+							Content="Carbohydrate"/>
+						<ComboBoxItem
+							Content="Fibre"/>
+						<ComboBoxItem
+							Content="Fat"/>
+						<ComboBoxItem
+							Content="Mineral"/>
+						<ComboBoxItem
+							Content="Protein"/>
+						<ComboBoxItem
+							Content="Vitamin"/>
+						<ComboBoxItem
+							Content="Water"/>
+					</ComboBox>
+
+					<Button
+						x:Name="HomePageFilterButton"
+						Content="Filter"
+						Width="60"
+						Height="25"
+						Click="HomePageFilterButton_OnClick"/>
+
+					<Button
+						x:Name="HomePageClearButton"
+						Content="Clear"
+						Width="60"
+						Height="25"
+						Click="HomePageClearButton_OnClick"/>
+				</StackPanel>
+
+				<ListView
+					x:Name="RecipesListView"
+					Height="675"
+					Margin="0,0,0,2"
+					HorizontalAlignment="Stretch"/>
+
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+					<Button
+						Content="Add Recipe"
+						Width="188"
+						Height="25"
+						Margin="2"
+						Click="HomePageAddRecipeButton_OnClick"/>
+
+					<Button
+						Content="View Recipe"
+						Width="188"
+						Height="25"
+						Margin="2"
+						Click="HomePageViewRecipeButton_OnClick"/>
+				</StackPanel>
+			</StackPanel>
+		</Canvas>
+
+		<Canvas
+			x:Name="AddRecipePage"
+			Visibility="Hidden">
+
+			<StackPanel>
+				<Label
+					Content="Add Recipe"
+					Height="30"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"/>
+
+				<StackPanel
+					Height="700"
+					Margin="0,0,0,2"
+					HorizontalAlignment="Stretch">
+
+					<StackPanel
+						Orientation="Horizontal">
+
+						<Label
+							Content="Name:"
+							Width="100"
+							Height="25"/>
+
+						<TextBox
+							x:Name="AddRecipePageNameTextBox"
+							Width="270"
+							Height="25"/>
+					</StackPanel>
+				</StackPanel>
+
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+					<Button
+						Content="Accept"
+						Width="188"
+						Height="25"
+						Margin="2"
+						Click="AddRecipePageAcceptButton_OnClick"/>
+
+					<Button
+						Content="Back"
+						Width="188"
+						Height="25"
+						Margin="2"
+						Click="AddRecipePageBackButton_OnClick"/>
+				</StackPanel>
+			</StackPanel>
+		</Canvas>
+
+		<Canvas
+			x:Name="ViewRecipePage"
+			Visibility="Hidden">
+
+			<StackPanel>
+				<Label
+					Content="Add Recipe"
+					Height="30"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"/>
+
+				<Button
+					Content="Add Ingredient"
+					Width="188"
+					Height="25"
+					Margin="2"
+					Click="ViewRecipePageAddIngredientButton_OnClick"/>
+
+				<Button
+					Content="Add Step"
+					Width="188"
+					Height="25"
+					Margin="2"
+					Click="ViewRecipePageAddStepButton_OnClick"/>
+
+				<Button
+					Content="Scale Recipe"
+					Width="188"
+					Height="25"
+					Margin="2"
+					Click="ViewRecipePageScaleRecipeButton_OnClick"/>
+
+				<Button
+					Content="View Recipe"
+					Width="188"
+					Height="25"
+					Margin="2"
+					Click="ViewRecipePageViewRecipeButton_OnClick"/>
+
+				<Button
+					Content="Reset Recipe"
+					Width="188"
+					Height="25"
+					Margin="2"
+					Click="ViewRecipePageResetRecipeButton_OnClick"/>
+
+				<Button
+					Content="Clear Recipe"
+					Width="188"
+					Height="25"
+					Margin="2"
+					Click="ViewRecipePageClearRecipeButton_OnClick"/>
+
+				<Canvas
+					Height="528"/>
+
+				<Button
+					Content="Accept"
+					Width="380"
+					Height="25"
+					Margin="2"
+					Click="ViewRecipePageAcceptButton_OnClick"/>
+			</StackPanel>
+		</Canvas>
+
+		<Canvas
+			x:Name="ScaleRecipePage"
+			Visibility="Hidden">
+
+			<StackPanel>
+				<Label
+					Content="Scale Recipe"
+					Height="30"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"/>
+
+				<StackPanel
+					Orientation="Horizontal">
+
+					<Label
+						Content="Amount:"
+						Width="100"
+						Height="25"/>
+
+					<TextBox
+						x:Name="ScaleRecipePageScaleTextBox"
+						Width="270"
+						Height="25"/>
+				</StackPanel>
+
+				<Canvas
+					Height="676"/>
+
+				<Button
+					Content="Accept"
+					Width="380"
+					Height="25"
+					Margin="2"
+					Click="ScaleRecipePageAcceptButton_OnClick"/>
+			</StackPanel>
+		</Canvas>
+
+		<Canvas
+			x:Name="EditRecipePage"
+			Visibility="Hidden">
+
+			<StackPanel>
+				<Label
+					Content="Edit Recipe"
+					Height="30"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"/>
+
+				<Button
+					Content="Add Ingredient"
+					Width="188"
+					Height="25"
+					Margin="2"
+					Click="EditRecipePageAddIngredientButton_OnClick"/>
+
+				<Button
+					Content="Add Step"
+					Width="188"
+					Height="25"
+					Margin="2"
+					Click="EditRecipePageAddStepButton_OnClick"/>
+
+				<Canvas
+					Height="644"/>
+
+				<Button
+					Content="Accept"
+					Width="380"
+					Height="25"
+					Margin="2"
+					Click="EditRecipePageAcceptButton_OnClick"/>
+			</StackPanel>
+		</Canvas>
+
+		<Canvas
+			x:Name="AddIngredientPage"
+			Visibility="Hidden">
+
+			<StackPanel>
+				<Label
+					Content="Add Ingredient"
+					Height="30"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"/>
+
+				<StackPanel
+					Height="700"
+					Margin="0,0,0,2"
+					HorizontalAlignment="Stretch">
+
+					<StackPanel
+						Orientation="Horizontal">
+
+						<Label
+							Content="Name:"
+							Width="100"
+							Height="25"/>
+
+						<TextBox
+							x:Name="AddIngredientPageNameTextBox"
+							Width="270"
+							Height="25"/>
+					</StackPanel>
+
+					<StackPanel
+						Orientation="Horizontal">
+
+						<Label
+							Content="Quantity:"
+							Width="100"
+							Height="25"/>
+
+						<TextBox
+							x:Name="AddIngredientPageQuantityTextBox"
+							Width="270"
+							Height="25"/>
+					</StackPanel>
+
+					<StackPanel
+						Orientation="Horizontal">
+
+						<Label
+							Content="Measurement:"
+							Width="100"
+							Height="25"/>
+
+						<ComboBox
+							x:Name="AddIngredientPageUnitComboBox"
+							Width="270"
+							Height="25">
+
+							<ComboBoxItem
+								Content="Teaspoon"/>
+							<ComboBoxItem
+								Content="Tablespoon"/>
+							<ComboBoxItem
+								Content="Cup"/>
+							<ComboBoxItem
+								Content="Custom"/>
+						</ComboBox>
+					</StackPanel>
+
+					<StackPanel
+						Orientation="Horizontal">
+
+						<Label
+							Content="Calories:"
+							Width="100"
+							Height="25"/>
+
+						<TextBox
+							x:Name="AddIngredientPageCaloriesTextBox"
+							Width="270"
+							Height="25"/>
+					</StackPanel>
+
+					<StackPanel
+						Orientation="Horizontal">
+
+						<Label
+							Content="Food Group:"
+							Width="100"
+							Height="25"/>
+
+						<ComboBox
+							x:Name="AddIngredientPageFoodGroupComboBox"
+							Width="270"
+							Height="25">
+
+							<ComboBoxItem
+								Content="Carbohydrate"/>
+							<ComboBoxItem
+								Content="Fibre"/>
+							<ComboBoxItem
+								Content="Fat"/>
+							<ComboBoxItem
+								Content="Mineral"/>
+							<ComboBoxItem
+								Content="Protein"/>
+							<ComboBoxItem
+								Content="Vitamin"/>
+							<ComboBoxItem
+								Content="Water"/>
+						</ComboBox>
+					</StackPanel>
+				</StackPanel>
+
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+					<Button
+						Content="Accept"
+						Width="188"
+						Height="25"
+						Margin="2"
+						Click="AddIngredientPageAcceptButton_OnClick"/>
+
+					<Button
+						Content="Back"
+						Width="188"
+						Height="25"
+						Margin="2"
+						Click="AddIngredientPageBackButton_OnClick"/>
+				</StackPanel>
+			</StackPanel>
+		</Canvas>
+
+		<Canvas
+			x:Name="AddStepPage"
+			Visibility="Hidden">
+
+			<StackPanel>
+				<Label
+					Content="Add Step"
+					Height="30"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"/>
+
+				<StackPanel
+					Height="700"
+					Margin="0,0,0,2"
+					HorizontalAlignment="Stretch">
+
+					<StackPanel
+						Orientation="Horizontal">
+
+						<Label
+							Content="Title:"
+							Width="100"
+							Height="25"/>
+
+						<TextBox
+							x:Name="AddStepPageTitleTextBox"
+							Width="270"
+							Height="25"/>
+					</StackPanel>
+
+					<StackPanel
+						Orientation="Horizontal">
+
+						<Label
+							Content="Description:"
+							Width="100"
+							Height="25"/>
+
+						<TextBox
+							x:Name="AddStepPageDescriptionTextBox"
+							Width="270"
+							Height="25"/>
+					</StackPanel>
+				</StackPanel>
+
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+					<Button
+						Content="Accept"
+						Width="188"
+						Height="25"
+						Margin="2"
+						Click="AddStepPageAcceptButton_OnClick"/>
+
+					<Button
+						Content="Back"
+						Width="188"
+						Height="25"
+						Margin="2"
+						Click="AddStepPageBackButton_OnClick"/>
+				</StackPanel>
+			</StackPanel>
+		</Canvas>
+	</Grid>
+</Window>

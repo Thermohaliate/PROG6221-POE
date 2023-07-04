@@ -47,6 +47,8 @@ public class Ingredient {
 	internal int Calories =>
 		(int) Math.Round(this._calories * this._measurement.Quantity);
 
+	internal FoodGroup Group => this._foodGroup;
+	
 	internal string Name => this._name;
 
 	// methods -------------------------------------------------------------- //

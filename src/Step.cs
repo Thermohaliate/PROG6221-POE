@@ -20,8 +20,8 @@ internal class Step {
 		string line = this._description;
 		int index = 0;
 
-		while (line.Length > 80) {
-			index += 80;
+		while (line.Length > 38) {
+			index += 38;
 
 			while (description[index] != ' ') {
 				index--;

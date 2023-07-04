@@ -38,7 +38,7 @@ public class Recipe {
 	private static string CreateTitle(string text) {
 		string output = $"--- {text} ";
 
-		return $"{output} {new string('-', 80 - (output.Length + 1))}\n";
+		return $"{output} {new string('-', 38 - (output.Length + 1))}\n";
 	}
 
 	/// <summary>
@@ -85,7 +85,7 @@ public class Recipe {
 	}
 
 	public override string ToString() {
-		string border = $"{new string('=', 80)}\n";
+		string border = $"{new string('=', 38)}\n";
 		string output = border;
 
 		output += CreateTitle($"Ingredients ({this._ingredients.Count})");
